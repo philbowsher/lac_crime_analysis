@@ -1,0 +1,53 @@
+---
+title: "lac_crime_analysis"
+format: html
+editor: visual
+---
+
+## Crime Analayis 2020-Present
+
+```{r setup}
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(plotly)
+
+```
+
+
+import crime data
+```{r}
+
+
+Crime_Data_from_2020_to_Present <- read_csv("Crime_Data_from_2020_to_Present.csv")
+
+Crime_Data_from_2020_to_Present
+
+```
+
+subset crime data
+```{r}
+
+
+Crime_Data_from_2020_to_Present_Hollywood <- Crime_Data_from_2020_to_Present %>%
+ filter(`AREA NAME` %in% c("N Hollywood", "West LA", "Hollywood"))
+
+Crime_Data_from_2020_to_Present_Hollywood
+
+```
+
+static viz
+```{r}
+ dv1 <- ggplot(Crime_Data_from_2020_to_Present_Hollywood) +
+  aes(x = `AREA NAME`, fill = `Vict Sex`) +
+  geom_bar() +
+  scale_fill_hue(direction = 1) +
+  theme_minimal()
+
+ dv1
+```
+
+interactive viz
+```{r}
+ggplotly(dv1)
+```
